@@ -53,7 +53,6 @@ jobs:
         with:
           node-version: "14"  # or use the appropriate Node.js version
           cache: ${{ steps.detect-package-manager.outputs.manager }}
-          working-directory: next  # Set the working directory to the 'next' folder
       - name: Setup Pages
         uses: actions/configure-pages@v4
         with:
@@ -73,10 +72,13 @@ jobs:
           restore-keys: |
             ${{ runner.os }}-nextjs-${{ hashFiles('next/**/package-lock.json', 'next/**/yarn.lock') }}-
       - name: Install dependencies
+        working-directory: next  # Set the working directory to the 'next' folder
         run: ${{ steps.detect-package-manager.outputs.manager }} ${{ steps.detect-package-manager.outputs.command }}
       - name: Build with Next.js
+        working-directory: next  # Set the working directory to the 'next' folder
         run: ${{ steps.detect-package-manager.outputs.runner }} next build
       - name: Static HTML export with Next.js
+        working-directory: next  # Set the working directory to the 'next' folder
         run: ${{ steps.detect-package-manager.outputs.runner }} next export
       - name: Upload artifact
         uses: actions/upload-pages-artifact@v3
